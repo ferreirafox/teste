@@ -1,0 +1,39 @@
+canvas {
+  border: 8px solid blue;
+  border-radius: 50%;
+}
+
+.wheel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+.wheel:after {
+  content: "";
+  background: red;
+  border: 2px solid white;
+  position: absolute;
+  top: -7px;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  margin-left: -7px;
+  transform: rotate(45deg);
+}
+.spin-wheel {
+  margin: 0 auto;
+  -webkit-animation: rotate 0.5s linear infinite;
+  animation: rotate 0.5s linear infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
