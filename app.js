@@ -1,7 +1,7 @@
 let pieces = JSON.parse(window.localStorage.getItem("pieces"));
 
-var color = ["#ca7", "#7ac", "#77c", "#aac", "#a7c", "#ac7"];
-var label = ["Try Again", "200", "50", "100", "5", "500"];
+/* var color = ["#ca7", "#7ac", "#77c", "#aac", "#a7c", "#ac7"];
+var label = ["Try Again", "200", "50", "100", "5", "500"]; */
 
 var stopAngel = []; // stop angels starting from label index 1(0...label.length)
 var slices = pieces.length;
@@ -12,9 +12,12 @@ var slowDownRand = 0;
 var ctx = document.getElementById("canvas").getContext("2d");
 var width = document.getElementById("canvas").width; // size
 var center = width / 2; // center
-// var center = 150;
 var isStopped = false;
 var lock = false;
+var winner = "";
+const winnerEl = document.getElementsByClassName(
+  "winner"
+)
 
 function rand(min, max) {
   return Math.random() * (max - min) + min;
@@ -57,16 +60,6 @@ function drawSlice(index, deg, color) {
   ctx.fill();
 }
 
-// function drawSliceOut(index, deg, color){
-//   // alert("call")
-//   ctx.beginPath();
-//   console.log(ctx);
-//   ctx.fillStyle = '#6e4d4b';
-//   ctx.moveTo(160, 160);
-//   ctx.arc(150, 150, 150, 0, 360,false);
-//   ctx.lineTo(150, 150);
-//   ctx.fill();
-// }
 
 function drawText(deg, text) {
   ctx.save();
@@ -74,8 +67,8 @@ function drawText(deg, text) {
   ctx.rotate(deg2rad(deg));
   ctx.textAlign = "right";
   ctx.fillStyle = "#fff";
-  ctx.font = "14px";
-  ctx.fillText(text, 130, 10);
+  ctx.font = "20px Liberation Sans";
+  ctx.fillText(text, 200, 10);
   ctx.restore();
 }
 
@@ -112,24 +105,14 @@ function anim() {
   }
   // Stopped!
   if (lock && !speed) {
-    // console.log("deg " + deg);
-    //     console.log("slicedeg " + sliceDeg);
-    // console.log("calc " + Math.floor(((360 - 208 - 90) % 360) / sliceDeg))
-    // var ai = Math.floor(((360 - deg - 90) % 360) / sliceDeg); // deg 2 Array Index
-    // console.log(slices)
-    // ai = (slices+ai)%slices; // Fix negative index
-    // return alert("You got:\n"+ label[ai] ); // Get Array Item from end Degree
-    // ctx.arc(150,150,150,8.85131263511415, 9.748910536139757);
-    //   ctx.fill();
     deg = 0;
-    // drawImg();
+    
   }
   drawImg();
   window.requestAnimationFrame(anim);
 }
 
 function start() {
-  // anim();
   var ele = document.getElementById("canvas");
   ele.classList.add("spin-wheel");
   setTimeout(function () {
@@ -138,6 +121,16 @@ function start() {
     drawImg();
   }, 3000);
 }
+
+/* function animateWinner() {
+  winnerEl.animate(
+    {
+      opacity: [0.5, 1],
+      easing: ["ease-in", "ease-out"],
+    },
+    1000
+  );
+} */
 
 function addItem() {
   // Parametros
